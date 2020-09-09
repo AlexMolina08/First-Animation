@@ -21,7 +21,7 @@ class _LogoState extends State<Logo> with SingleTickerProviderStateMixin {
     final curvedAnimation = CurvedAnimation(
       parent: animCtrl,
       curve: Curves.bounceIn,
-      reverseCurve: Curves.easeOut,
+      reverseCurve: Curves.easeOut
     );
 
     anim = Tween<double>(
