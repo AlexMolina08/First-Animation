@@ -2,33 +2,40 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 
 class Logo extends StatefulWidget {
-
   @override
   _LogoState createState() => _LogoState();
 }
 
-class _LogoState extends State<Logo> with SingleTickerProviderStateMixin{
+class _LogoState extends State<Logo> with SingleTickerProviderStateMixin {
   AnimationController animCtrl;
-  Animation anim ;
+  Animation anim;
 
   @override
   void initState() {
     super.initState();
     animCtrl = AnimationController(
-      duration: Duration(seconds: 5), //Lo que dura la animacion en completarse
-      vsync: this
+        duration:
+            Duration(seconds: 5), //Lo que dura la animacion en completarse
+        vsync: this);
+
+    final curvedAnimation = CurvedAnimation(
+      parent: animCtrl,
+      curve: Curves.bounceIn,
+      reverseCurve: Curves.easeOut,
     );
 
-
-    anim = Tween<double>(begin: 0 , end: 2 * pi)
-        .animate(animCtrl)
-        ..addListener(() {
-          setState(() {}); //Cada vez que el animated cambia , se llama a setState
-        })..addStatusListener((status) {
-          if(status == AnimationStatus.completed) //si la animacion termina
-            animCtrl.reverse(); //llamamos al metodo reverse (animCtrll va de 1 a 0)
-          else if (status == AnimationStatus.dismissed)
-            animCtrl.forward();
+    anim = Tween<double>(
+        begin: 0,
+        end: 2 * pi
+    ).animate(curvedAnimation)
+      ..addListener(() {
+        setState(() {}); //Cada vez que el animated cambia , se llama a setState
+      })
+      ..addStatusListener((status) {
+        if (status == AnimationStatus.completed) //si la animacion termina
+          animCtrl
+              .reverse(); //llamamos al metodo reverse (animCtrll va de 1 a 0)
+        else if (status == AnimationStatus.dismissed) animCtrl.forward();
       });
 
     animCtrl.forward(); //comienza la animacion
@@ -55,5 +62,4 @@ class _LogoState extends State<Logo> with SingleTickerProviderStateMixin{
     animCtrl.dispose();
     super.dispose();
   }
-
 }
